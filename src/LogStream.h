@@ -33,7 +33,7 @@ public:
 	// Contrat :
 	//
 
-	Log NextLine ( );
+	Log  NextLine ( );
 	// Mode d'emploi :
 	//
 	// Contrat :

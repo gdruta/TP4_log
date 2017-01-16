@@ -25,7 +25,7 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
- Log LogStream::NextLine ( )
+ Log  LogStream::NextLine ( )
 // Algorithme :
 //
 {
@@ -33,12 +33,12 @@ using namespace std;
 	 string userLogName;
 	 string userName;
 	 string rawdate;
-	 string gmt;
 	 string method;
 	 string resource;
 	 string version;
-	 struct tm date;
-	 struct Request request;
+	 string rawcode;
+	 string rawsize;
+	 
 	 int code;
 	 int size;
 	 string referer;
@@ -47,11 +47,34 @@ using namespace std;
 	 std::getline(*this,ip,' ');
 	 std::getline(*this,userLogName,' ');
 	 std::getline(*this,userName,' ');
-	 std::getline(*this,rawdate,' ');
-	 std::getline(*this,gmt,' ');
+	 std::getline(*this,rawdate,']');
+	 string temp;
+	 std::getline(*this,temp,' ');
 	 std::getline(*this,method,' ');
+	 method=method.substr(1,method.size()-1);
 	 std::getline(*this,resource,' ');
 	 std::getline(*this,version,' ');
+	 version=version.substr(0,version.size()-1);
+	 std::getline(*this,rawcode,' ');
+	 std::getline(*this,rawsize,' ');
+	 std::getline(*this,referer,' ');
+	 referer=referer.substr(1,version.size()-2);
+	 std::getline(*this,client,' ');
+	 client=client.substr(1,client.size()-2);
+	 
+	 struct TimeStamp date;
+	 date.date=rawdate.substr(1,11);
+	 date.hour=stoi(rawdate.substr(14,2));
+	 date.min=stoi(rawdate.substr(17,2));
+	 date.sec=stoi(rawdate.substr(20,2));
+	 date.GMT=stoi(rawdate.substr(24,4));
+	 struct Request request(method,resource,version);
+	 code=stoi(rawcode,nullptr);
+	 size=stoi(rawsize,nullptr);
+
+	 return Log(ip,userLogName,userName,date,request,code,size,referer,client);
+
+
 
 } //----- Fin de NextLine
 

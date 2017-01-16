@@ -1,43 +1,31 @@
 /*************************************************************************
- Log  -  description
+ Principale  -  description
  -------------------
- début                : 9 janv. 2017
- copyright            : (C) 2017 par gdruta
+ début                : 16 janv. 2017
+ copyright            : (C) 2017 par epetit
  *************************************************************************/
 
-//---------- Interface de la classe <Log> (fichier Log.h) ------
-#if ! defined ( LOG_H_ )
-#define LOG_H_
+//---------- Interface de la classe <Principale> (fichier Principale.h) ------
+#if ! defined ( PRINCIPALE_H_ )
+#define PRINCIPALE_H_
 
 //--------------------------------------------------- Interfaces utilisées
-#include <string>
+# include "Log.h"
+# include <utility>
+# include <map>
 using namespace std;
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
-struct TimeStamp{
-	string date;
-	int hour;
-	int min;
-	int sec;
-	int GMT;
-	TimeStamp(string d="",int h=0,int m=0, int s=0, int g=0):date(d),hour(h),min(m),sec(s),GMT(g){}
-};
-struct Request{
-	string method;
-	string cible;
-	string extension;
-	string version;
-	Request(string m="",string c="",string v=""):
-		method(m),cible(c),version(v){extension="";}
-};
+typedef map<string,int> MapReferers;
+typedef map<string,pair<int,MapReferers>> MapCibles;
 //------------------------------------------------------------------------ 
-// Rôle de la classe <Log>
+// Rôle de la classe <Principale>
 //
 //
 //------------------------------------------------------------------------ 
 
-class Log {
+class Principale {
 //----------------------------------------------------------------- PUBLIC
 
 public:
@@ -48,39 +36,39 @@ public:
 	// Contrat :
 	//
 
-	string GetCible (    );
+	void Afficher ();
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
-	
-	string GetReferer (    );
+
+	void AjouterLog ( Log  l);
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
 
 //------------------------------------------------- Surcharge d'opérateurs
-	Log & operator =(const Log & unLog);
+	Principale & operator =(const Principale & unPrincipale);
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
 
 //-------------------------------------------- Constructeurs - destructeur
-	Log(const Log & unLog);
+	Principale(const Principale & unPrincipale);
 	// Mode d'emploi (constructeur de copie) :
 	//
 	// Contrat :
 	//
 
-	Log(string i,string uLN,string uN,struct TimeStamp d,struct Request r,int cd,int s,string ref,string c);
+	Principale();
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
 
-	virtual ~Log();
+	virtual ~Principale();
 	// Mode d'emploi :
 	//
 	// Contrat :
@@ -92,19 +80,10 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-string ip;
-string userLogName;
-string userName;
-struct TimeStamp date;
-struct Request request;
-int code;
-int size;
-string referer;
-string client;
-
+MapCibles infos;
 };
 
-//--------------------------- Autres définitions dépendantes de <Log>
+//--------------------------- Autres définitions dépendantes de <Principale>
 
-#endif // LOG_H_
+#endif // PRINCIPALE_H_
 
