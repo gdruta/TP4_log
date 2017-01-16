@@ -1,35 +1,28 @@
 /*************************************************************************
- Log  -  description
+ LogStream  -  description
  -------------------
  début                : 9 janv. 2017
- copyright            : (C) 2017 par epetit
+ copyright            : (C) 2017 par gdruta
  *************************************************************************/
 
-//---------- Interface de la classe <Log> (fichier Log.h) ------
-#if ! defined ( LOG_H_ )
-#define LOG_H_
+//---------- Interface de la classe <LogStream> (fichier LogStream.h) ------
+#if ! defined ( LOGSTREAM_H_ )
+#define LOGSTREAM_H_
 
 //--------------------------------------------------- Interfaces utilisées
-#include <string>
-#include <time.h>
+#include <fstream>
+#include "Log.h"
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
-struct Request{
-	string method;
-	string cible;
-	string extension;
-	string version;
-	Request(string m="",string c="",string e="",string v=""):
-		method(m),cible(c),extension(e),version(v){}
-};
+
 //------------------------------------------------------------------------ 
-// Rôle de la classe <Log>
+// Rôle de la classe <LogStream>
 //
 //
 //------------------------------------------------------------------------ 
 
-class Log {
+class LogStream:public ifstream{
 //----------------------------------------------------------------- PUBLIC
 
 public:
@@ -40,27 +33,33 @@ public:
 	// Contrat :
 	//
 
+	Log NextLine ( );
+	// Mode d'emploi :
+	//
+	// Contrat :
+	//
+
 //------------------------------------------------- Surcharge d'opérateurs
-	Log & operator =(const Log & unLog);
+	LogStream & operator =(const LogStream & unLogStream);
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
 
 //-------------------------------------------- Constructeurs - destructeur
-	Log(const Log & unLog);
+	LogStream(const LogStream & unLogStream);
 	// Mode d'emploi (constructeur de copie) :
 	//
 	// Contrat :
 	//
 
-	Log(string i,string uLN,string uN,struct tm d,struct Request r,int cd,int s,string ref,string c);
+	LogStream(bool e1,bool t1,int h,string nomfichier);
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
 
-	virtual ~Log();
+	virtual ~LogStream();
 	// Mode d'emploi :
 	//
 	// Contrat :
@@ -72,19 +71,12 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-string ip;
-string userLogName;
-string userName;
-struct tm date;
-struct Request request;
-int code;
-int size;
-string referer;
-string client;
-
+bool e;
+bool t;
+int heure;
 };
 
-//--------------------------- Autres définitions dépendantes de <Log>
+//--------------------------- Autres définitions dépendantes de <LogStream>
 
-#endif // LOG_H_
+#endif // LOGSTREAM_H_
 

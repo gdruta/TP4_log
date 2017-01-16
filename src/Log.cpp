@@ -2,7 +2,7 @@
  Log  -  description
  -------------------
  début                : 9 janv. 2017
- copyright            : (C) 2017 par epetit
+ copyright            : (C) 2017 par gdruta
  *************************************************************************/
 
 //---------- Réalisation de la classe <Log> (fichier Log.cpp) -------
