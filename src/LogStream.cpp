@@ -58,9 +58,10 @@ using namespace std;
 	 std::getline(*this,rawcode,' ');
 	 std::getline(*this,rawsize,' ');
 	 std::getline(*this,referer,' ');
-	 referer=referer.substr(1,version.size()-2);
-	 std::getline(*this,client,' ');
-	 client=client.substr(1,client.size()-2);
+	 referer=referer.substr(1,referer.size()-2);
+	 std::getline(*this,temp,'"');
+	 std::getline(*this,client,'"');
+	 client=client.substr(1,client.size()-1);
 	 
 	 struct TimeStamp date;
 	 date.date=rawdate.substr(1,11);

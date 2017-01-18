@@ -13,12 +13,14 @@
 # include "Log.h"
 # include <utility>
 # include <map>
+# include <unordered_set>
 using namespace std;
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
 typedef map<string,int> MapReferers;
 typedef map<string,pair<int,MapReferers>> MapCibles;
+typedef unordered_set<string> SetResources;
 //------------------------------------------------------------------------ 
 // Rôle de la classe <Principale>
 //
@@ -48,6 +50,11 @@ public:
 	// Contrat :
 	//
 
+	void CreateGraph(const string s) const;
+	// Mode d'emploi :
+	//
+	// Contrat :
+	//
 //------------------------------------------------- Surcharge d'opérateurs
 	Principale & operator =(const Principale & unPrincipale);
 	// Mode d'emploi :
@@ -81,6 +88,7 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 MapCibles infos;
+SetResources resources;
 };
 
 //--------------------------- Autres définitions dépendantes de <Principale>

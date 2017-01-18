@@ -52,7 +52,14 @@ int main(int argc,char * argv[]){
     LogStream ls(e,t,hour,fileLog);
     if (ls.good())
     {
-        pr.AjouterLog(ls.NextLine());
+        for (int i=0;i<5;i++)
+        {
+            pr.AjouterLog(ls.NextLine());
+        }        
+    }
+    if (g) 
+    {
+        pr.CreateGraph(fileDot);
     }
     pr.Afficher();
     

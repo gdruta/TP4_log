@@ -11,6 +11,7 @@
 using namespace std;
 #include <iostream>
 #include <string>
+#include <fstream>
 
 //------------------------------------------------------ Include personnel
 #include "Principale.h"
@@ -40,15 +41,39 @@ void Principale::Afficher (  )
 	}
 } //----- Fin de Afficher
 
-void Principale::CreateGraph(string file)
+void Principale::CreateGraph(const string file) const
 {
 	ofstream os(file);
 	if (os.good())
 	{
 		os<<"digraph {"<<endl;
-		MapCibles::iterator debut,fin;
-		
+		SetResources::const_iterator debut,fin;
+		debut=resources.begin();
+		fin=resources.end();
+		while(debut!=fin)
+		{
+			os<<"node"<<resources.bucket(*debut)<<" [label=\""<<*debut<<"\"];"<<endl;
+			debut++;
+		}
+		MapCibles::const_iterator debutCible,finCilbe;
+		debutCible=infos.begin();
+		finCilbe=infos.end();
+		MapReferers::const_iterator debutReferer,finReferer;
+		while(debutCible!=finCilbe)
+		{
+			debutReferer=debutCible->second.second.begin();
+			finReferer=debutCible->second.second.end();
+			while(debutReferer!=finReferer)
+			{
+				os<<"node"<<resources.bucket(debutCible->first)<<" -> node"<<resources.bucket(debutReferer->first)<<" [label=\"";
+				os<<debutReferer->second<<"\"];"<<endl;
+				debutReferer++;
+			}
+			debutCible++;			
+		}
+		os<<"}"<<endl;
 	}
+	os.close();
 }
 
 void Principale::AjouterLog ( Log  l )
@@ -56,11 +81,16 @@ void Principale::AjouterLog ( Log  l )
 //
 {
 	string cible=l.GetCible();
-	if (cible.substr(0,31)=="http://intranet-if.insa-lyon.fr")
-	{
-		cible=cible.substr(32,string::npos);
-	}
+	
 	string referer=l.GetReferer();
+	if (referer.substr(0,31)=="http://intranet-if.insa-lyon.fr")
+	{
+		referer=referer.substr(31,string::npos);
+	}
+
+	resources.insert(cible);
+	resources.insert(referer);
+
 	MapReferers referers;
 	referers.insert(make_pair(referer,1));
 	pair<MapCibles::iterator,bool> ret= infos.insert(make_pair(cible,make_pair(1,referers)));
