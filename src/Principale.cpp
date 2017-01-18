@@ -40,6 +40,17 @@ void Principale::Afficher (  )
 	}
 } //----- Fin de Afficher
 
+void Principale::CreateGraph(string file)
+{
+	ofstream os(file);
+	if (os.good())
+	{
+		os<<"digraph {"<<endl;
+		MapCibles::iterator debut,fin;
+		
+	}
+}
+
 void Principale::AjouterLog ( Log  l )
 // Algorithme :
 //
