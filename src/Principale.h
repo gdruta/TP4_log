@@ -14,6 +14,7 @@
 # include <utility>
 # include <map>
 # include <unordered_set>
+# include <vector>
 using namespace std;
 //------------------------------------------------------------- Constantes 
 
@@ -38,13 +39,13 @@ public:
 	// Contrat :
 	//
 
-	void Afficher ();
+	void Afficher () const;
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
 
-	void AjouterLog ( Log  l);
+	void AjouterLog (const Log &  l);
 	// Mode d'emploi :
 	//
 	// Contrat :
@@ -89,6 +90,7 @@ protected:
 //----------------------------------------------------- Attributs protégés
 MapCibles infos;
 SetResources resources;
+vector <string> top10;
 };
 
 //--------------------------- Autres définitions dépendantes de <Principale>

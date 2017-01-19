@@ -27,17 +27,16 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-void Principale::Afficher (  )
+void Principale::Afficher (  ) const
 // Algorithme :
 //
 {
-	MapCibles::iterator debut,fin;
+	MapCibles::const_iterator debut,fin;
 	debut=infos.begin();
 	fin=infos.end();
 	while(debut!=fin)
 	{
-		cout<<debut->first<<" "<<debut->second.first<<endl;
-		debut++;
+		
 	}
 } //----- Fin de Afficher
 
@@ -76,16 +75,22 @@ void Principale::CreateGraph(const string file) const
 	os.close();
 }
 
-void Principale::AjouterLog ( Log  l )
+void Principale::AjouterLog (const Log &  l )
 // Algorithme :
 //
 {
 	string cible=l.GetCible();
+	int index=cible.find_first_of('?');
+	cible=cible.substr(0,index);
 	
 	string referer=l.GetReferer();
 	if (referer.substr(0,31)=="http://intranet-if.insa-lyon.fr")
 	{
 		referer=referer.substr(31,string::npos);
+	}else if (referer!="-")
+	{
+		index=referer.find_first_of('/',7);
+		referer=referer.substr(0,index);
 	}
 
 	resources.insert(cible);

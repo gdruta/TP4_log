@@ -33,7 +33,7 @@ public:
 	// Contrat :
 	//
 
-	Log  NextLine ( );
+	Log & NextLine ( );
 	// Mode d'emploi :
 	//
 	// Contrat :
@@ -53,7 +53,7 @@ public:
 	// Contrat :
 	//
 
-	LogStream(bool e1,bool t1,int h,string nomfichier);
+	LogStream(string nomfichier);
 	// Mode d'emploi :
 	//
 	// Contrat :

@@ -25,19 +25,34 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-string Log::GetCible (  )
+string Log::GetCible (  ) const
 // Algorithme :
 //
 {
 	return request.cible;
 } //----- Fin de GetCible
 
-string Log::GetReferer (  )
+string Log::GetReferer (  ) const
 // Algorithme :
 //
 {
 	return referer;
 } //----- Fin de GetReferer
+
+string Log::GetExtension (  ) const
+// Algorithme :
+//
+{
+	return request.extension;
+} //----- Fin de GetReferer
+
+int Log::GetHour (  ) const
+// Algorithme :
+//
+{
+	return date.hour;
+} //----- Fin de GetReferer
+
 
 //------------------------------------------------- Surcharge d'opérateurs
 Log & Log::operator =(const Log & unLog)
@@ -56,7 +71,7 @@ Log::Log(const Log & unLog)
 #endif
 } //----- Fin de Log (constructeur de copie)
 
-Log::Log(string i="",string uLN="-",string uN="-",struct TimeStamp d=TimeStamp(),struct Request r=Request(),int cd=200,int s=0,string ref="",string c=""):
+Log::Log(string i="",string uLN="-",string uN="-",struct TimeStamp d=TimeStamp(),struct Request r=Request(),int cd=200,string s="",string ref="",string c=""):
 		ip(i), userLogName(uLN), userName(uN), date(d), request(r), code(cd), size(s), referer(ref), client(c)
 // Algorithme :
 //

@@ -49,12 +49,23 @@ int main(int argc,char * argv[]){
     fileLog=argv[argc-1];
 
 
-    LogStream ls(e,t,hour,fileLog);
-    if (ls.good())
+    LogStream ls(fileLog);
+    if (!ls.good())
     {
-        for (int i=0;i<5;i++)
+        cout<<"fichier introuvable"<<endl;
+    }else if (ls.peek()==EOF)
+    {
+        cout<<"fichier vide"<<endl;
+    }else 
+    {
+        while (ls.peek()!=EOF)
         {
-            pr.AjouterLog(ls.NextLine());
+            Log l=ls.NextLine();
+            if (!( ((e)&&((l.GetExtension()==".png")||(l.GetExtension()==".jpg")||(l.GetExtension()==".bmp")))||
+                   ((t)&&(l.GetHour()!=hour)) ))
+            {
+                pr.AjouterLog(l);
+            }            
         }        
     }
     if (g) 

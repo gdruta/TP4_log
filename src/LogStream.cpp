@@ -25,7 +25,7 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
- Log  LogStream::NextLine ( )
+ Log & LogStream::NextLine ( )
 // Algorithme :
 //
 {
@@ -40,7 +40,7 @@ using namespace std;
 	 string rawsize;
 	 
 	 int code;
-	 int size;
+	 string size;
 	 string referer;
 	 string client;
 
@@ -53,10 +53,16 @@ using namespace std;
 	 std::getline(*this,method,' ');
 	 method=method.substr(1,method.size()-1);
 	 std::getline(*this,resource,' ');
+	 int index=referer.find_first_of('?');
+	 string extension=referer.substr(0,index);
+	 index=extension.find_first_of('.');
+	 extension=extension.substr(index,string::npos);
+
+
 	 std::getline(*this,version,' ');
 	 version=version.substr(0,version.size()-1);
 	 std::getline(*this,rawcode,' ');
-	 std::getline(*this,rawsize,' ');
+	 std::getline(*this,size,' ');
 	 std::getline(*this,referer,' ');
 	 referer=referer.substr(1,referer.size()-2);
 	 std::getline(*this,temp,'"');
@@ -69,11 +75,12 @@ using namespace std;
 	 date.min=stoi(rawdate.substr(17,2));
 	 date.sec=stoi(rawdate.substr(20,2));
 	 date.GMT=stoi(rawdate.substr(24,4));
-	 struct Request request(method,resource,version);
+	 struct Request request(method,resource,extension,version);
 	 code=stoi(rawcode,nullptr);
-	 size=stoi(rawsize,nullptr);
 
-	 return Log(ip,userLogName,userName,date,request,code,size,referer,client);
+	 
+	 Log newLog(ip,userLogName,userName,date,request,code,size,referer,client);
+	 return newLog;
 
 
 
@@ -96,8 +103,8 @@ LogStream::LogStream(const LogStream & unLogStream)
 #endif
 } //----- Fin de LogStream (constructeur de copie)
 
-LogStream::LogStream(bool e1=false,bool t1=false,int h=0,string nomfichier=""):
-		e(e1),t(t1),heure(h),ifstream(nomfichier.c_str())
+LogStream::LogStream(string nomfichier=""):
+		ifstream(nomfichier.c_str())
 // Algorithme :
 //
 {

@@ -28,8 +28,8 @@ struct Request{
 	string cible;
 	string extension;
 	string version;
-	Request(string m="",string c="",string v=""):
-		method(m),cible(c),version(v){extension="";}
+	Request(string m="",string c="",string e="",string v=""):
+		method(m),cible(c),extension(e),version(v){}
 };
 //------------------------------------------------------------------------ 
 // Rôle de la classe <Log>
@@ -48,13 +48,25 @@ public:
 	// Contrat :
 	//
 
-	string GetCible (    );
+	string GetCible (    ) const;
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
 	
-	string GetReferer (    );
+	string GetReferer (    ) const;
+	// Mode d'emploi :
+	//
+	// Contrat :
+	//
+
+	int GetHour (    ) const;
+	// Mode d'emploi :
+	//
+	// Contrat :
+	//
+
+	string GetExtension (    ) const;
 	// Mode d'emploi :
 	//
 	// Contrat :
@@ -74,7 +86,7 @@ public:
 	// Contrat :
 	//
 
-	Log(string i,string uLN,string uN,struct TimeStamp d,struct Request r,int cd,int s,string ref,string c);
+	Log(string i,string uLN,string uN,struct TimeStamp d,struct Request r,int cd,string s,string ref,string c);
 	// Mode d'emploi :
 	//
 	// Contrat :
@@ -98,7 +110,7 @@ string userName;
 struct TimeStamp date;
 struct Request request;
 int code;
-int size;
+string size;
 string referer;
 string client;
 
