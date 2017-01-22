@@ -28,21 +28,21 @@ int main(int argc,char * argv[]){
     string fileDot;
     int hour=0;
     Principale pr;
-    if(cmdOptionExists(argv, argv+argc, "-e"))
+    if(cmdOptionExists(argv, argv+argc-1, "-e"))
     {
         e=true;
     }
 
-    if(cmdOptionExists(argv, argv+argc, "-t"))
+    if(cmdOptionExists(argv, argv+argc-1, "-t"))
     {
         t=true;
-        string rawhour=getCmdOption(argv, argv + argc, "-t");
+        string rawhour=getCmdOption(argv, argv + argc-1, "-t");
         hour=stoi(rawhour,nullptr);
     }
 
-    if(cmdOptionExists(argv, argv+argc, "-g"))
+    if(cmdOptionExists(argv, argv+argc-1, "-g"))
     {
-        g=true;
+        g=true;        
         fileDot = getCmdOption(argv, argv + argc, "-g");
     }
 
@@ -58,12 +58,15 @@ int main(int argc,char * argv[]){
         cout<<"fichier vide"<<endl;
     }else 
     {
+        
         while (ls.peek()!=EOF)
         {
+            cout<<ls.peek()<<endl;
             Log l=ls.NextLine();
             if (!( ((e)&&((l.GetExtension()==".png")||(l.GetExtension()==".jpg")||(l.GetExtension()==".bmp")))||
                    ((t)&&(l.GetHour()!=hour)) ))
             {
+                
                 pr.AjouterLog(l);
             }            
         }        

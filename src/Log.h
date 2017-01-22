@@ -86,7 +86,7 @@ public:
 	// Contrat :
 	//
 
-	Log(string i,string uLN,string uN,struct TimeStamp d,struct Request r,int cd,string s,string ref,string c);
+	Log(string i="",string uLN="-",string uN="-",struct TimeStamp d=TimeStamp(),struct Request r=Request(),int cd=200,string s="",string ref="",string c="");
 	// Mode d'emploi :
 	//
 	// Contrat :

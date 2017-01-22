@@ -27,20 +27,54 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-void Principale::Afficher (  ) const
+void Principale::GetTop10 ( pair<int,string> p)
 // Algorithme :
 //
 {
-	MapCibles::const_iterator debut,fin;
+	Top10::iterator debut;
+	debut=top10.begin();
+	if (top10.size()<10)
+	{ 
+		top10.insert(p);
+	}
+	else 
+	{
+		if (debut->first < p.first)
+		{
+			top10.erase(debut);
+			top10.insert(p);
+		}
+	}
+} //----- Fin de GetTop10
+
+void Principale::Afficher (  ) 
+// Algorithme :
+//
+{
+	MapCibles::iterator debut,fin;
 	debut=infos.begin();
 	fin=infos.end();
 	while(debut!=fin)
 	{
-		
+		string cible=debut->first;
+		int count=debut->second.first;
+		GetTop10(make_pair(count,cible));
+		debut++;
 	}
+	Top10::reverse_iterator debutTop,finTop;
+	debutTop=top10.rbegin();
+	finTop=top10.rend();
+	while(debutTop!=finTop)
+	{
+		cout<<debutTop->second<<" "<<debutTop->first<<endl;
+		debutTop++;
+	}
+
 } //----- Fin de Afficher
 
 void Principale::CreateGraph(const string file) const
+// Algorithme :
+//
 {
 	ofstream os(file);
 	if (os.good())
@@ -111,11 +145,6 @@ void Principale::AjouterLog (const Log &  l )
 } //----- Fin de AjouterLog
 
 //------------------------------------------------- Surcharge d'opérateurs
-Principale & Principale::operator =(const Principale & unPrincipale)
-// Algorithme :
-//
-		{
-} //----- Fin de operator =
 
 //-------------------------------------------- Constructeurs - destructeur
 Principale::Principale(const Principale & unPrincipale)

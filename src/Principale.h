@@ -14,7 +14,6 @@
 # include <utility>
 # include <map>
 # include <unordered_set>
-# include <vector>
 using namespace std;
 //------------------------------------------------------------- Constantes 
 
@@ -22,6 +21,7 @@ using namespace std;
 typedef map<string,int> MapReferers;
 typedef map<string,pair<int,MapReferers>> MapCibles;
 typedef unordered_set<string> SetResources;
+typedef multimap <int,string> Top10;
 //------------------------------------------------------------------------ 
 // Rôle de la classe <Principale>
 //
@@ -38,8 +38,13 @@ public:
 	//
 	// Contrat :
 	//
+	void GetTop10 (pair<int,string> p);
+	// Mode d'emploi :
+	//
+	// Contrat :
+	//
 
-	void Afficher () const;
+	void Afficher () ;
 	// Mode d'emploi :
 	//
 	// Contrat :
@@ -90,7 +95,7 @@ protected:
 //----------------------------------------------------- Attributs protégés
 MapCibles infos;
 SetResources resources;
-vector <string> top10;
+Top10 top10;
 };
 
 //--------------------------- Autres définitions dépendantes de <Principale>

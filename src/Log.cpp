@@ -55,11 +55,6 @@ int Log::GetHour (  ) const
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-Log & Log::operator =(const Log & unLog)
-// Algorithme :
-//
-		{
-} //----- Fin de operator =
 
 //-------------------------------------------- Constructeurs - destructeur
 Log::Log(const Log & unLog)
@@ -71,7 +66,7 @@ Log::Log(const Log & unLog)
 #endif
 } //----- Fin de Log (constructeur de copie)
 
-Log::Log(string i="",string uLN="-",string uN="-",struct TimeStamp d=TimeStamp(),struct Request r=Request(),int cd=200,string s="",string ref="",string c=""):
+Log::Log(string i,string uLN,string uN,struct TimeStamp d,struct Request r,int cd,string s,string ref,string c):
 		ip(i), userLogName(uLN), userName(uN), date(d), request(r), code(cd), size(s), referer(ref), client(c)
 // Algorithme :
 //

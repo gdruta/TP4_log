@@ -25,7 +25,7 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
- Log & LogStream::NextLine ( )
+ Log  LogStream::NextLine ( )
 // Algorithme :
 //
 {
@@ -50,13 +50,21 @@ using namespace std;
 	 std::getline(*this,rawdate,']');
 	 string temp;
 	 std::getline(*this,temp,' ');
+	 
 	 std::getline(*this,method,' ');
 	 method=method.substr(1,method.size()-1);
 	 std::getline(*this,resource,' ');
-	 int index=referer.find_first_of('?');
-	 string extension=referer.substr(0,index);
+	 unsigned int index=resource.find_first_of('?');
+	 string extension=resource.substr(0,index);
 	 index=extension.find_first_of('.');
-	 extension=extension.substr(index,string::npos);
+	 if (index==string::npos)
+	 {
+		 extension="";
+	 }
+	 else
+	 {
+	 	extension=extension.substr(index,string::npos);
+	 }
 
 
 	 std::getline(*this,version,' ');
@@ -66,8 +74,8 @@ using namespace std;
 	 std::getline(*this,referer,' ');
 	 referer=referer.substr(1,referer.size()-2);
 	 std::getline(*this,temp,'"');
-	 std::getline(*this,client,'"');
-	 client=client.substr(1,client.size()-1);
+	 std::getline(*this,client);
+	 client=client.substr(1,client.size()-2);
 	 
 	 struct TimeStamp date;
 	 date.date=rawdate.substr(1,11);
@@ -77,21 +85,14 @@ using namespace std;
 	 date.GMT=stoi(rawdate.substr(24,4));
 	 struct Request request(method,resource,extension,version);
 	 code=stoi(rawcode,nullptr);
-
 	 
-	 Log newLog(ip,userLogName,userName,date,request,code,size,referer,client);
-	 return newLog;
+	 return Log(ip,userLogName,userName,date,request,code,size,referer,client);
 
 
 
 } //----- Fin de NextLine
 
 //------------------------------------------------- Surcharge d'opérateurs
-LogStream & LogStream::operator =(const LogStream & unLogStream)
-// Algorithme :
-//
-		{
-} //----- Fin de operator =
 
 //-------------------------------------------- Constructeurs - destructeur
 LogStream::LogStream(const LogStream & unLogStream)
@@ -103,7 +104,7 @@ LogStream::LogStream(const LogStream & unLogStream)
 #endif
 } //----- Fin de LogStream (constructeur de copie)
 
-LogStream::LogStream(string nomfichier=""):
+LogStream::LogStream(string nomfichier):
 		ifstream(nomfichier.c_str())
 // Algorithme :
 //
