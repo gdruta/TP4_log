@@ -2,7 +2,7 @@
  Principale  -  description
  -------------------
  début                : 16 janv. 2017
- copyright            : (C) 2017 par epetit
+ copyright            : (C) 2017 par  gdruta & epetit
  *************************************************************************/
 
 //---------- Réalisation de la classe <Principale> (fichier Principale.cpp) -------
@@ -27,9 +27,8 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-void Principale::GetTop10 ( pair<int,string> p)
+void Principale::InsertTop10 ( pair<int,string> p)
 // Algorithme :
-//
 {
 	Top10::iterator debut;
 	debut=top10.begin();
@@ -45,11 +44,10 @@ void Principale::GetTop10 ( pair<int,string> p)
 			top10.insert(p);
 		}
 	}
-} //----- Fin de GetTop10
+} //----- Fin de InsertTop10
 
 void Principale::Afficher (  ) 
 // Algorithme :
-//
 {
 	MapCibles::iterator debut,fin;
 	debut=infos.begin();
@@ -58,7 +56,7 @@ void Principale::Afficher (  )
 	{
 		string cible=debut->first;
 		int count=debut->second.first;
-		GetTop10(make_pair(count,cible));
+		InsertTop10(make_pair(count,cible));
 		debut++;
 	}
 	Top10::reverse_iterator debutTop,finTop;
@@ -74,7 +72,6 @@ void Principale::Afficher (  )
 
 void Principale::CreateGraph(const string file) const
 // Algorithme :
-//
 {
 	ofstream os(file);
 	if (os.good())
@@ -111,7 +108,6 @@ void Principale::CreateGraph(const string file) const
 
 void Principale::AjouterLog (const Log &  l )
 // Algorithme :
-//
 {
 	string cible=l.GetCible();
 	int index=cible.find_first_of('?');
@@ -149,8 +145,7 @@ void Principale::AjouterLog (const Log &  l )
 //-------------------------------------------- Constructeurs - destructeur
 Principale::Principale(const Principale & unPrincipale)
 // Algorithme :
-//
-		{
+{
 #ifdef MAP
 	cout << "Appel au constructeur de copie de <Principale>" << endl;
 #endif
@@ -158,7 +153,6 @@ Principale::Principale(const Principale & unPrincipale)
 
 Principale::Principale()
 // Algorithme :
-//
 {
 #ifdef MAP
 	cout << "Appel au constructeur de <Principale>" << endl;
@@ -167,7 +161,6 @@ Principale::Principale()
 
 Principale::~Principale()
 // Algorithme :
-//
 {
 #ifdef MAP
 	cout << "Appel au destructeur de <Principale>" << endl;

@@ -38,23 +38,25 @@ public:
 	//
 	// Contrat :
 	//
-	void GetTop10 (pair<int,string> p);
+	void InsertTop10 (pair<int,string> p);
+	// Verifie si une resource est valable pour le top10 et 
+	// permet de l'inserer dans la multimap de top10
 	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	// pair p: int nombre des acces a la resources
+	// pair p: string nom de la resource
+	// Contrat : pas
 
 	void Afficher () ;
+	// Permet d'afficher le top 10 de resources
 	// Mode d'emploi :
 	//
-	// Contrat :
-	//
+	// Contrat : pas
 
 	void AjouterLog (const Log &  l);
+	// Permet d'ajouter la cible et le refereur a la structure de donnee
 	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	// l: Log lu et traité d'un fichier .log
+	// Contrat : pas
 
 	void CreateGraph(const string s) const;
 	// Mode d'emploi :
