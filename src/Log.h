@@ -49,28 +49,24 @@ public:
 	//
 
 	string GetCible (    ) const;
+	// donne la cible du log
 	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	// Contrat : pas
 	
 	string GetReferer (    ) const;
+	// donne le refereur du log
 	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	// Contrat : pas
 
 	int GetHour (    ) const;
+	// donne l'heure du log
 	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	// Contrat : pas
 
 	string GetExtension (    ) const;
+	// donne l'extension de la cible du log
 	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	// Contrat : pas
 
 //------------------------------------------------- Surcharge d'opérateurs
 	Log & operator =(const Log & unLog);
@@ -87,16 +83,15 @@ public:
 	//
 
 	Log(string i="",string uLN="-",string uN="-",struct TimeStamp d=TimeStamp(),struct Request r=Request(),int cd=200,string s="",string ref="",string c="");
+	// Constructeur du log a partir des donnée fournis par le log apache
 	// Mode d'emploi :
 	//
-	// Contrat :
-	//
+	// Contrat : pas
 
 	virtual ~Log();
+	// Destructeur du Log
 	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	// Contrat : ps
 
 //------------------------------------------------------------------ PRIVE 
 

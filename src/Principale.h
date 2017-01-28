@@ -49,7 +49,6 @@ public:
 	void Afficher () ;
 	// Permet d'afficher le top 10 de resources
 	// Mode d'emploi :
-	//
 	// Contrat : pas
 
 	void AjouterLog (const Log &  l);
@@ -59,10 +58,10 @@ public:
 	// Contrat : pas
 
 	void CreateGraph(const string s) const;
+	// Permet de generer le fichier .dot qui contient le graphe des liens decrit par le fichier .log
 	// Mode d'emploi :
-	//
+	// s: nom de fichier .dot
 	// Contrat :
-	//
 //------------------------------------------------- Surcharge d'opérateurs
 	Principale & operator =(const Principale & unPrincipale);
 	// Mode d'emploi :
@@ -95,9 +94,9 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-MapCibles infos;
-SetResources resources;
-Top10 top10;
+MapCibles infos;  //la structure de donnée qui contient le cible et les refereurs,avec le nombre des fois que le refereur a demandé la cible
+SetResources resources; // unordered_set avec tout les resources (cible et refereurs)
+Top10 top10; // multimap qui contient les 10 cible le plus visité
 };
 
 //--------------------------- Autres définitions dépendantes de <Principale>

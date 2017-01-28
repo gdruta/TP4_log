@@ -18,8 +18,8 @@
 
 //------------------------------------------------------------------------ 
 // Rôle de la classe <LogStream>
-//
-//
+// classe qui herite de ifstream
+// utilise pour ouvrir le fichier .log et lire dessus 
 //------------------------------------------------------------------------ 
 
 class LogStream:public ifstream{
@@ -27,17 +27,11 @@ class LogStream:public ifstream{
 
 public:
 //----------------------------------------------------- Méthodes publiques
-	// type Méthode ( liste des paramètres );
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
 
 	Log  NextLine ( );
+	// Permet de lire une ligne d'un fichier .log et retourne un Log créé a partir du log apache
 	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	// Contrat : pas
 
 //------------------------------------------------- Surcharge d'opérateurs
 	LogStream & operator =(const LogStream & unLogStream);
@@ -71,9 +65,6 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-bool e;
-bool t;
-int heure;
 };
 
 //--------------------------- Autres définitions dépendantes de <LogStream>

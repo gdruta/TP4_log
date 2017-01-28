@@ -19,36 +19,27 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Log::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
 
 string Log::GetCible (  ) const
 // Algorithme :
-//
 {
 	return request.cible;
 } //----- Fin de GetCible
 
 string Log::GetReferer (  ) const
 // Algorithme :
-//
 {
 	return referer;
 } //----- Fin de GetReferer
 
 string Log::GetExtension (  ) const
 // Algorithme :
-//
 {
 	return request.extension;
 } //----- Fin de GetReferer
 
 int Log::GetHour (  ) const
 // Algorithme :
-//
 {
 	return date.hour;
 } //----- Fin de GetReferer
@@ -59,8 +50,7 @@ int Log::GetHour (  ) const
 //-------------------------------------------- Constructeurs - destructeur
 Log::Log(const Log & unLog)
 // Algorithme :
-//
-		{
+{
 #ifdef MAP
 	cout << "Appel au constructeur de copie de <Log>" << endl;
 #endif
@@ -69,7 +59,6 @@ Log::Log(const Log & unLog)
 Log::Log(string i,string uLN,string uN,struct TimeStamp d,struct Request r,int cd,string s,string ref,string c):
 		ip(i), userLogName(uLN), userName(uN), date(d), request(r), code(cd), size(s), referer(ref), client(c)
 // Algorithme :
-//
 {
 #ifdef MAP
 	cout << "Appel au constructeur de <Log>" << endl;
@@ -78,7 +67,6 @@ Log::Log(string i,string uLN,string uN,struct TimeStamp d,struct Request r,int c
 
 Log::~Log()
 // Algorithme :
-//
 {
 #ifdef MAP
 	cout << "Appel au destructeur de <Log>" << endl;

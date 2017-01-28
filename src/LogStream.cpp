@@ -54,8 +54,9 @@ using namespace std;
 	 std::getline(*this,method,' ');
 	 method=method.substr(1,method.size()-1);
 	 std::getline(*this,resource,' ');
-	 unsigned int index=resource.find_first_of('?');
+	 int index=resource.find_first_of('?');
 	 string extension=resource.substr(0,index);
+	 
 	 index=extension.find_first_of('.');
 	 if (index==string::npos)
 	 {
