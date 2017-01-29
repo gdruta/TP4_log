@@ -1,8 +1,10 @@
-build/Application.o: src/Application.cpp src/LogStream.h src/Log.h \
- src/Principale.h
+build/Application.o: src/Application.cpp src/Application.h \
+ src/Principale.h src/Log.h src/LogStream.h
 
-src/LogStream.h:
+src/Application.h:
+
+src/Principale.h:
 
 src/Log.h:
 
-src/Principale.h:
+src/LogStream.h:

@@ -1,0 +1,35 @@
+digraph {
+node3 [label="-"];
+node1 [label="/SiteWebIF/Intranet-etudiant.php"];
+node4 [label="/notesif"];
+node5 [label="/notesif/"];
+node15 [label="/stages/Listestage.php"];
+node16 [label="/stages/descriptif/MEDIAL.pdf"];
+node7 [label="/temps/"];
+node6 [label="/temps/3IF1.ics"];
+node12 [label="/temps/3IF37.html"];
+node11 [label="/temps/3IF38.html"];
+node13 [label="/temps/3IF39.html"];
+node14 [label="/temps/3IF40.html"];
+node17 [label="/temps/4IF1.ics"];
+node9 [label="/temps/4IF3.ics"];
+node10 [label="/temps/4IF4.ics"];
+node2 [label="http://if.insa-lyon.fr"];
+node8 [label="http://www.google.fr"];
+node3 -> node1 [label="9"];
+node2 -> node1 [label="2"];
+node3 -> node4 [label="2"];
+node1 -> node4 [label="2"];
+node3 -> node5 [label="2"];
+node1 -> node5 [label="2"];
+node1 -> node15 [label="1"];
+node15 -> node16 [label="1"];
+node8 -> node7 [label="1"];
+node3 -> node6 [label="3"];
+node12 -> node11 [label="1"];
+node11 -> node13 [label="1"];
+node13 -> node14 [label="1"];
+node3 -> node17 [label="1"];
+node3 -> node9 [label="1"];
+node3 -> node10 [label="1"];
+}

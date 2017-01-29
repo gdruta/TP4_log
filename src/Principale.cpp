@@ -102,6 +102,10 @@ void Principale::CreateGraph(const string file) const
 		}
 		os<<"}"<<endl;
 	}
+	else
+	{
+		
+	}
 	os.close();
 }
 
@@ -116,7 +120,7 @@ void Principale::AjouterLog (const Log &  l )
 	cible=cible.substr(0,index);
 	
 	string referer=l.GetReferer();
-	if (referer.substr(0,31)==DOMAIN)
+	if (referer.substr(0,31)==DOMAIN_NAME)
 	{
 		referer=referer.substr(31,string::npos);
 	}else if (referer!="-")

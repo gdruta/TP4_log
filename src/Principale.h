@@ -2,7 +2,7 @@
  Principale  -  description
  -------------------
  début                : 16 janv. 2017
- copyright            : (C) 2017 par epetit
+ copyright            : (C) 2017 par gdruta & epetit
  *************************************************************************/
 
 //---------- Interface de la classe <Principale> (fichier Principale.h) ------
@@ -15,7 +15,7 @@
 # include <map>
 using namespace std;
 //------------------------------------------------------------- Constantes 
-const string DOMAIN="http://intranet-if.insa-lyon.fr";
+const string DOMAIN_NAME="http://intranet-if.insa-lyon.fr";
 const int MAX_IN_TOP=10;
 //------------------------------------------------------------------ Types 
 typedef map<string,int> MapReferers;
@@ -63,6 +63,7 @@ public:
 	// Mode d'emploi :
 	// s: nom de fichier .dot
 	// Contrat :
+	
 //------------------------------------------------- Surcharge d'opérateurs
 	Principale & operator =(const Principale & unPrincipale);
 	// Mode d'emploi :
@@ -94,7 +95,7 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 MapCibles infos;  //la structure de donnée qui contient le cible et les refereurs,avec le nombre des fois que le refereur a demandé la cible
-MapResources resources; // unordered_set avec tout les resources (cibles et refereurs)
+MapResources resources; // une map avec tout les resources (cibles et refereurs) comme clé auxquelles on associe un numero d'ordre
 Top top; // multimap qui contient les MAX_IN_TOP cibles le plus visité
 };
 
