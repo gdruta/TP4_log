@@ -45,7 +45,11 @@ public:
 	// pair p: string nom de la resource
 	// Contrat : pas
 
-	void Afficher () ;
+	void CreateTop10 ();
+	// Permet de creer le top 10 resources
+	// Contrat : pas
+
+	void AfficherTop10 () const;
 	// Permet d'afficher le top 10 de resources
 	// Mode d'emploi :
 	// Contrat : pas

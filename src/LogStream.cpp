@@ -48,12 +48,15 @@ using namespace std;
 	 std::getline(*this,userLogName,' ');
 	 std::getline(*this,userName,' ');
 	 std::getline(*this,rawdate,']');
-	 string temp;
+
+	 string temp; //variable pour le caracteres inutile
 	 std::getline(*this,temp,' ');
 	 
 	 std::getline(*this,method,' ');
 	 method=method.substr(1,method.size()-1);
+
 	 std::getline(*this,resource,' ');
+	 // Find extension of resource
 	 int index=resource.find_first_of('?');
 	 string extension=resource.substr(0,index);
 	 
@@ -68,8 +71,10 @@ using namespace std;
 	 }
 
 
-	 std::getline(*this,version,' ');
-	 version=version.substr(0,version.size()-1);
+
+	 std::getline(*this,version,'"');
+
+	 std::getline(*this,temp,' ');
 	 std::getline(*this,rawcode,' ');
 	 std::getline(*this,size,' ');
 	 std::getline(*this,referer,' ');
@@ -78,15 +83,20 @@ using namespace std;
 	 std::getline(*this,client);
 	 client=client.substr(1,client.size()-2);
 	 
+	 // creation structure timestamp(date,heure)
 	 struct TimeStamp date;
 	 date.date=rawdate.substr(1,11);
 	 date.hour=stoi(rawdate.substr(13,2));
 	 date.min=stoi(rawdate.substr(16,2));
 	 date.sec=stoi(rawdate.substr(19,2));
 	 date.GMT=stoi(rawdate.substr(23,4));
+
+	 // creation structure Request
 	 struct Request request(method,resource,extension,version);
+
+	 //code to int
 	 code=stoi(rawcode,nullptr);
-	 
+ 
 	 return Log(ip,userLogName,userName,date,request,code,size,referer,client);
 
 

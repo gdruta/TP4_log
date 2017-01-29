@@ -22,6 +22,12 @@ static bool cmdOptionExists(char** begin, char** end, const std::string& option)
     return std::find(begin, end, option) != end;
 }
 
+static bool verifyExtension(string ext)
+// verifie si l'extension est autorisé
+{
+    return (ext==".png")||(ext==".gif")||(ext==".ico")||(ext==".jpg")||(ext==".bmp")||(ext==".css")||(ext==".js")||(ext==".jpeg");
+}
+
 static void  ReadArguments(int argc,char * argv[])
 {
     //Variables utilisées
@@ -31,87 +37,110 @@ static void  ReadArguments(int argc,char * argv[])
     string fileLog;
     string fileDot;
     int hour=0;
-    Principale pr;
+    Principale pr; 
 
-    if(cmdOptionExists(argv, argv+argc-1, "-e"))
+    // Verification si nombre des arguments suffisent
+    if (argc<2)
     {
-        e=true;
+        cerr<<"ERROR : not enough arguments"<< endl;
     }
-
-    if(cmdOptionExists(argv, argv+argc-1, "-t"))
+    else
     {
-        char * rawhour=getCmdOption(argv, argv + argc-1, "-t");
-        try
+        // Verification si option -e presente
+        if(cmdOptionExists(argv, argv+argc-1, "-e"))
         {
-            hour=stoi(string(rawhour),nullptr);
+            e=true;
         }
-        catch (const exception & e)
+
+        // Verification si option -t presente
+        if(cmdOptionExists(argv, argv+argc-1, "-t"))
         {
-            cerr<< "ERROR : hour not specified, running without -t option"<< endl;
+            char * rawhour=getCmdOption(argv, argv + argc-1, "-t");
+            try
+            {
+                hour=stoi(string(rawhour),nullptr);
+            }
+            catch (const exception & e)
+            {
+                cerr<< "ERROR : hour not specified, running without -t option"<< endl;
+            }
+            if ((hour>=0)&&(hour<=24))
+            {
+                t=true;
+            }
+            else
+            {
+                cerr<<"ERROR : no valid hour argument, running without -t option"<<endl;
+            }
         }
-        if ((hour>=0)&&(hour<=24))
+
+        // Verification si -g presente
+        if(cmdOptionExists(argv, argv+argc-1, "-g"))
+        {        
+            char * arg = getCmdOption(argv, argv + argc-1, "-g");
+            if (arg!=0)
+            {
+                string file=arg;
+                unsigned int index=file.find(".dot");
+                if (index==string::npos)
+                {
+                    cerr<<"ERROR : file provided for graph does not have a .dot extension"<<endl; 
+                }
+                else
+                {
+                    g=true;
+                    fileDot=file;
+                }
+            }
+            else 
+            {
+                cerr<<"ERROR : no .dot file provided"<<endl; 
+            }
+        }
+
+        fileLog=argv[argc-1];
+
+        // Verification de file .log
+        int index=fileLog.find(".log");
+        if (index==string::npos)
         {
-            t=true;
+            cerr<<"ERROR : file does not have a .log extension"<<endl; 
         }
         else
         {
-            cerr<<"ERROR : no valid hour argument, running without -t option"<<endl;
-        }
-    }
-
-    if(cmdOptionExists(argv, argv+argc-1, "-g"))
-    {        
-        char * arg = getCmdOption(argv, argv + argc-1, "-g");
-        if (arg!=0)
-        {
-            string file=arg;
-            unsigned int index=file.find(".dot");
-            if (index==string::npos)
+            LogStream ls(fileLog);
+            if (!ls.good())
             {
-                cerr<<"ERROR : file does not have a .dot extension"<<endl; 
-            }
-            else
+                cerr<<"ERROR : fichier introuvable"<<endl;
+            }else if (ls.peek()==EOF)
             {
-                g=true;
-                fileDot=file;
+                cerr<<"ERROR : fichier vide"<<endl;
+            }else 
+            {            
+                while (ls.peek()!=EOF)
+                {
+                    Log l=ls.NextLine();
+                    if (  ( (e) && (verifyExtension(l.GetExtension()) ) ) ||
+                        ((t)&&(l.GetHour()!=hour)) )
+                    {}
+                    else
+                    {                
+                        pr.AjouterLog(l);
+                    }            
+                } 
+                if (g) 
+                {
+                    pr.CreateGraph(fileDot);
+                }
+                pr.CreateTop10();
+                pr.AfficherTop10();       
             }
         }
-        else 
-        {
-            cerr<<"ERROR : no .dot file provided"<<endl; 
-        }
-    }
-
-    fileLog=argv[argc-1];
 
 
-    LogStream ls(fileLog);
-    if (!ls.good())
-    {
-        cerr<<"ERROR : fichier introuvable"<<endl;
-    }else if (ls.peek()==EOF)
-    {
-        cerr<<"ERROR : fichier vide"<<endl;
-    }else 
-    {
         
-        while (ls.peek()!=EOF)
-        {
-            Log l=ls.NextLine();
-            if (( ((e)&&((l.GetExtension()==".png")||(l.GetExtension()==".jpg")||(l.GetExtension()==".bmp")||(l.GetExtension()==".css")))||
-                   ((t)&&(l.GetHour()!=hour)) ))
-            {}
-            else
-            {                
-                pr.AjouterLog(l);
-            }            
-        }        
-    }
-    if (g) 
-    {
-        pr.CreateGraph(fileDot);
-    }
-    pr.Afficher();
+    }       
+    
 }
 
 int main(int argc,char * argv[])

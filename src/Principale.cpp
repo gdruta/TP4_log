@@ -41,8 +41,7 @@ void Principale::InsertTop10 ( pair<int,string> p)
 	}
 } //----- Fin de InsertTop10
 
-void Principale::Afficher (  ) 
-// Algorithme :
+void Principale::CreateTop10()
 {
 	MapCibles::iterator debut,fin;
 	debut=infos.begin();
@@ -54,24 +53,20 @@ void Principale::Afficher (  )
 		InsertTop10(make_pair(count,cible));
 		debut++;
 	}
-	Top10::reverse_iterator debutTop,finTop;
+}//----- Fin de CreateTop10
+
+void Principale::AfficherTop10 (  ) const
+// Algorithme :
+{	
+	Top10::const_reverse_iterator debutTop,finTop;
 	debutTop=top10.rbegin();
 	finTop=top10.rend();
 	while(debutTop!=finTop)
 	{
-		cout<<debutTop->second<<" "<<debutTop->first<<endl;
+		cout<<debutTop->second<<" ("<<debutTop->first<<" hits)"<<endl;
 		debutTop++;
 	}
-	debut=infos.begin();
-	/*while(debut!=fin)
-	{
-		string cible=debut->first;
-		int count=debut->second.first;
-		cout<<cible<<" "<<count<<endl;
-		debut++;
-	}*/
-
-} //----- Fin de Afficher
+} //----- Fin de AfficherTop10
 
 void Principale::CreateGraph(const string file) const
 // Algorithme :
@@ -79,6 +74,7 @@ void Principale::CreateGraph(const string file) const
 	ofstream os(file);
 	if (os.good())
 	{
+		cout<<"dot-file "<<file<<" generated"<<endl;
 		os<<"digraph {"<<endl;
 		MapResources::const_iterator debut,fin;
 		debut=resources.begin();
