@@ -13,14 +13,13 @@
 # include "Log.h"
 # include <utility>
 # include <map>
-# include <unordered_set>
 using namespace std;
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
 typedef map<string,int> MapReferers;
 typedef map<string,pair<int,MapReferers>> MapCibles;
-typedef unordered_set<string> SetResources;
+typedef map<string,int> MapResources;
 typedef multimap <int,string> Top10;
 //------------------------------------------------------------------------ 
 // Rôle de la classe <Principale>
@@ -95,7 +94,7 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 MapCibles infos;  //la structure de donnée qui contient le cible et les refereurs,avec le nombre des fois que le refereur a demandé la cible
-SetResources resources; // unordered_set avec tout les resources (cible et refereurs)
+MapResources resources; // unordered_set avec tout les resources (cible et refereurs)
 Top10 top10; // multimap qui contient les 10 cible le plus visité
 };
 

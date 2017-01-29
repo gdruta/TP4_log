@@ -80,10 +80,10 @@ using namespace std;
 	 
 	 struct TimeStamp date;
 	 date.date=rawdate.substr(1,11);
-	 date.hour=stoi(rawdate.substr(14,2));
-	 date.min=stoi(rawdate.substr(17,2));
-	 date.sec=stoi(rawdate.substr(20,2));
-	 date.GMT=stoi(rawdate.substr(24,4));
+	 date.hour=stoi(rawdate.substr(13,2));
+	 date.min=stoi(rawdate.substr(16,2));
+	 date.sec=stoi(rawdate.substr(19,2));
+	 date.GMT=stoi(rawdate.substr(23,4));
 	 struct Request request(method,resource,extension,version);
 	 code=stoi(rawcode,nullptr);
 	 

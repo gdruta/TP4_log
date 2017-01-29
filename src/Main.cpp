@@ -47,7 +47,7 @@ static void  ReadArguments(int argc,char * argv[])
         }
         catch (const exception & e)
         {
-            cerr<< "ERROR : hour not specified"<< endl;
+            cerr<< "ERROR : hour not specified, running without -t option"<< endl;
         }
         if ((hour>=0)&&(hour<=24))
         {
@@ -55,7 +55,7 @@ static void  ReadArguments(int argc,char * argv[])
         }
         else
         {
-            cerr<<"ERROR : no valid hour argument"<<endl;
+            cerr<<"ERROR : no valid hour argument, running without -t option"<<endl;
         }
     }
 
@@ -64,7 +64,21 @@ static void  ReadArguments(int argc,char * argv[])
         char * arg = getCmdOption(argv, argv + argc-1, "-g");
         if (arg!=0)
         {
-
+            string file=arg;
+            unsigned int index=file.find(".dot");
+            if (index==string::npos)
+            {
+                cerr<<"ERROR : file does not have a .dot extension"<<endl; 
+            }
+            else
+            {
+                g=true;
+                fileDot=file;
+            }
+        }
+        else 
+        {
+            cerr<<"ERROR : no .dot file provided"<<endl; 
         }
     }
 
@@ -84,10 +98,11 @@ static void  ReadArguments(int argc,char * argv[])
         while (ls.peek()!=EOF)
         {
             Log l=ls.NextLine();
-            if (!( ((e)&&((l.GetExtension()==".png")||(l.GetExtension()==".jpg")||(l.GetExtension()==".bmp")||(l.GetExtension()==".css")))||
+            if (( ((e)&&((l.GetExtension()==".png")||(l.GetExtension()==".jpg")||(l.GetExtension()==".bmp")||(l.GetExtension()==".css")))||
                    ((t)&&(l.GetHour()!=hour)) ))
-            {
-                
+            {}
+            else
+            {                
                 pr.AjouterLog(l);
             }            
         }        

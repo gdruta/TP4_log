@@ -62,6 +62,14 @@ void Principale::Afficher (  )
 		cout<<debutTop->second<<" "<<debutTop->first<<endl;
 		debutTop++;
 	}
+	debut=infos.begin();
+	/*while(debut!=fin)
+	{
+		string cible=debut->first;
+		int count=debut->second.first;
+		cout<<cible<<" "<<count<<endl;
+		debut++;
+	}*/
 
 } //----- Fin de Afficher
 
@@ -72,12 +80,12 @@ void Principale::CreateGraph(const string file) const
 	if (os.good())
 	{
 		os<<"digraph {"<<endl;
-		SetResources::const_iterator debut,fin;
+		MapResources::const_iterator debut,fin;
 		debut=resources.begin();
 		fin=resources.end();
 		while(debut!=fin)
 		{
-			os<<"node"<<resources.bucket(*debut)<<" [label=\""<<*debut<<"\"];"<<endl;
+			os<<"node"<<debut->second<<" [label=\""<<debut->first<<"\"];"<<endl;
 			debut++;
 		}
 		MapCibles::const_iterator debutCible,finCilbe;
@@ -90,7 +98,7 @@ void Principale::CreateGraph(const string file) const
 			finReferer=debutCible->second.second.end();
 			while(debutReferer!=finReferer)
 			{
-				os<<"node"<<resources.bucket(debutCible->first)<<" -> node"<<resources.bucket(debutReferer->first)<<" [label=\"";
+				os<<"node"<<resources.at(debutReferer->first)<<" -> node"<<resources.at(debutCible->first)<<" [label=\"";
 				os<<debutReferer->second<<"\"];"<<endl;
 				debutReferer++;
 			}
@@ -118,8 +126,8 @@ void Principale::AjouterLog (const Log &  l )
 		referer=referer.substr(0,index);
 	}
 
-	resources.insert(cible);
-	resources.insert(referer);
+	resources.insert(make_pair(cible,resources.size()+1));
+	resources.insert(make_pair(referer,resources.size()+1));
 
 	MapReferers referers;
 	referers.insert(make_pair(referer,1));
