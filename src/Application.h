@@ -12,6 +12,7 @@
 //--------------------------------------------------- Interfaces utilisées
 using namespace std;
 #include "Principale.h"
+#include "LogStream.h"
 
 //------------------------------------------------------------- Constantes 
 

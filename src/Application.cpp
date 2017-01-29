@@ -15,7 +15,6 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Application.h"
-#include "LogStream.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -88,7 +87,7 @@ void  Application::ReadArguments(int argc,char * argv[])
                     {
                     g=true;
                     fileDot=file;
-                    
+
                 }
                 }
                 
@@ -120,6 +119,7 @@ void  Application::ReadArguments(int argc,char * argv[])
                 cerr<<"ERROR : fichier .log vide"<<endl;
             }else 
             {            
+                int logCounter=0;
                 while (ls.peek()!=EOF)
                 {
                     Log l=ls.NextLine();
@@ -129,14 +129,23 @@ void  Application::ReadArguments(int argc,char * argv[])
                     else
                     {                
                         pr.AjouterLog(l);
+                        logCounter++;
                     }            
                 } 
-                if (g) 
+                if (logCounter!=0)
                 {
-                    pr.CreateGraph(fileDot);
+                    if (g) 
+                    {
+                        pr.CreateGraph(fileDot);
+                    }
+                    pr.CreateTop();
+                    pr.AfficherTop();       
                 }
-                pr.CreateTop();
-                pr.AfficherTop();       
+                else
+                {
+                    cout<<"rien a afficher"<<endl;
+                }
+                
             }
         }
 
