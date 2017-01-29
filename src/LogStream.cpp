@@ -19,11 +19,6 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type LogStream::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
 
  Log  LogStream::NextLine ( )
 // Algorithme :
@@ -56,10 +51,12 @@ using namespace std;
 	 method=method.substr(1,method.size()-1);
 
 	 std::getline(*this,resource,' ');
+
 	 // Find extension of resource
 	 int index=resource.find_first_of('?');
 	 string extension=resource.substr(0,index);
-	 
+	 index=resource.find_first_of(';');
+	 extension=resource.substr(0,index);	 
 	 index=extension.find_first_of('.');
 	 if (index==string::npos)
 	 {

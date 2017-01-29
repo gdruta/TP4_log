@@ -19,7 +19,8 @@
 //------------------------------------------------------------------------ 
 // Rôle de la classe <LogStream>
 // classe qui herite de ifstream
-// utilise pour ouvrir le fichier .log et lire dessus 
+// Ouvrir le fichier .log 
+// Lire les logs ecrites dans le fichier et creer des objets Log 
 //------------------------------------------------------------------------ 
 
 class LogStream:public ifstream{

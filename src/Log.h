@@ -33,8 +33,7 @@ struct Request{
 };
 //------------------------------------------------------------------------ 
 // Rôle de la classe <Log>
-//
-//
+// Représente un log généré par Apache
 //------------------------------------------------------------------------ 
 
 class Log {
@@ -42,12 +41,6 @@ class Log {
 
 public:
 //----------------------------------------------------- Méthodes publiques
-	// type Méthode ( liste des paramètres );
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
-
 	string GetCible (    ) const;
 	// donne la cible du log
 	// Mode d'emploi :
@@ -102,7 +95,7 @@ protected:
 string ip;
 string userLogName;
 string userName;
-struct TimeStamp date;
+struct TimeStamp date;//dateet temps
 struct Request request;
 int code;
 string size;

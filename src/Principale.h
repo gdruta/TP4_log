@@ -15,16 +15,19 @@
 # include <map>
 using namespace std;
 //------------------------------------------------------------- Constantes 
-
+const string DOMAIN="http://intranet-if.insa-lyon.fr";
+const int MAX_IN_TOP=10;
 //------------------------------------------------------------------ Types 
 typedef map<string,int> MapReferers;
 typedef map<string,pair<int,MapReferers>> MapCibles;
 typedef map<string,int> MapResources;
-typedef multimap <int,string> Top10;
+typedef multimap <int,string> Top;
 //------------------------------------------------------------------------ 
 // Rôle de la classe <Principale>
-//
-//
+// Gerer la totalité des resources 
+// Gèrer la structure de donnée qui contient les cibles et les refereurs 
+// extraites de file .log
+// Gèrer l'affichage de statistique et la creation du graph	
 //------------------------------------------------------------------------ 
 
 class Principale {
@@ -32,24 +35,19 @@ class Principale {
 
 public:
 //----------------------------------------------------- Méthodes publiques
-	// type Méthode ( liste des paramètres );
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
-	void InsertTop10 (pair<int,string> p);
-	// Verifie si une resource est valable pour le top10 et 
-	// permet de l'inserer dans la multimap de top10
+	void InsertTop (pair<int,string> p);
+	// Verifie si une resource est valable pour le Top et 
+	// permet de l'inserer dans la multimap de Top
 	// Mode d'emploi :
 	// pair p: int nombre des acces a la resources
 	// pair p: string nom de la resource
 	// Contrat : pas
 
-	void CreateTop10 ();
+	void CreateTop ();
 	// Permet de creer le top 10 resources
 	// Contrat : pas
 
-	void AfficherTop10 () const;
+	void AfficherTop () const;
 	// Permet d'afficher le top 10 de resources
 	// Mode d'emploi :
 	// Contrat : pas
@@ -68,9 +66,7 @@ public:
 //------------------------------------------------- Surcharge d'opérateurs
 	Principale & operator =(const Principale & unPrincipale);
 	// Mode d'emploi :
-	//
 	// Contrat :
-	//
 
 //-------------------------------------------- Constructeurs - destructeur
 	Principale(const Principale & unPrincipale);
@@ -81,7 +77,7 @@ public:
 
 	Principale();
 	// Mode d'emploi :
-	//
+	// constructeur de la clase	
 	// Contrat :
 	//
 
@@ -98,8 +94,8 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 MapCibles infos;  //la structure de donnée qui contient le cible et les refereurs,avec le nombre des fois que le refereur a demandé la cible
-MapResources resources; // unordered_set avec tout les resources (cible et refereurs)
-Top10 top10; // multimap qui contient les 10 cible le plus visité
+MapResources resources; // unordered_set avec tout les resources (cibles et refereurs)
+Top top; // multimap qui contient les MAX_IN_TOP cibles le plus visité
 };
 
 //--------------------------- Autres définitions dépendantes de <Principale>

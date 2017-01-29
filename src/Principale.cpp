@@ -22,26 +22,26 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void Principale::InsertTop10 ( pair<int,string> p)
+void Principale::InsertTop ( pair<int,string> p)
 // Algorithme :
 {
-	Top10::iterator debut;
-	debut=top10.begin();
-	if (top10.size()<10)
+	Top::iterator debut;
+	debut=top.begin();
+	if (top.size()<MAX_IN_TOP)
 	{ 
-		top10.insert(p);
+		top.insert(p);
 	}
 	else 
 	{
 		if (debut->first < p.first)
 		{
-			top10.erase(debut);
-			top10.insert(p);
+			top.erase(debut);
+			top.insert(p);
 		}
 	}
-} //----- Fin de InsertTop10
+} //----- Fin de InsertTop
 
-void Principale::CreateTop10()
+void Principale::CreateTop()
 {
 	MapCibles::iterator debut,fin;
 	debut=infos.begin();
@@ -50,23 +50,23 @@ void Principale::CreateTop10()
 	{
 		string cible=debut->first;
 		int count=debut->second.first;
-		InsertTop10(make_pair(count,cible));
+		InsertTop(make_pair(count,cible));
 		debut++;
 	}
-}//----- Fin de CreateTop10
+}//----- Fin de CreateTop
 
-void Principale::AfficherTop10 (  ) const
+void Principale::AfficherTop (  ) const
 // Algorithme :
 {	
-	Top10::const_reverse_iterator debutTop,finTop;
-	debutTop=top10.rbegin();
-	finTop=top10.rend();
+	Top::const_reverse_iterator debutTop,finTop;
+	debutTop=top.rbegin();
+	finTop=top.rend();
 	while(debutTop!=finTop)
 	{
 		cout<<debutTop->second<<" ("<<debutTop->first<<" hits)"<<endl;
 		debutTop++;
 	}
-} //----- Fin de AfficherTop10
+} //----- Fin de AfficherTop
 
 void Principale::CreateGraph(const string file) const
 // Algorithme :
@@ -108,12 +108,15 @@ void Principale::CreateGraph(const string file) const
 void Principale::AjouterLog (const Log &  l )
 // Algorithme :
 {
+	// trouver la cible en format simple
 	string cible=l.GetCible();
 	int index=cible.find_first_of('?');
 	cible=cible.substr(0,index);
+	index=cible.find_first_of(';');
+	cible=cible.substr(0,index);
 	
 	string referer=l.GetReferer();
-	if (referer.substr(0,31)=="http://intranet-if.insa-lyon.fr")
+	if (referer.substr(0,31)==DOMAIN)
 	{
 		referer=referer.substr(31,string::npos);
 	}else if (referer!="-")

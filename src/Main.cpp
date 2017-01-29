@@ -132,8 +132,8 @@ static void  ReadArguments(int argc,char * argv[])
                 {
                     pr.CreateGraph(fileDot);
                 }
-                pr.CreateTop10();
-                pr.AfficherTop10();       
+                pr.CreateTop();
+                pr.AfficherTop();       
             }
         }
 
@@ -146,4 +146,5 @@ static void  ReadArguments(int argc,char * argv[])
 int main(int argc,char * argv[])
 {
     ReadArguments(argc,argv);
+    return 0;
 }
