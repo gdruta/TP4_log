@@ -19,7 +19,7 @@ using namespace std;
 
 //------------------------------------------------------------------------ 
 // Rôle de la classe <Application>
-// 
+// Executer l'application en dependance des options fournies
 // 
 //------------------------------------------------------------------------ 
 
@@ -77,6 +77,7 @@ protected:
     // verifie si une option est demandée par l'utilisateur
 
 //----------------------------------------------------- Attributs protégés
+    // bool pour les 3 options du  programme
     bool e;
     bool t;
     bool g;

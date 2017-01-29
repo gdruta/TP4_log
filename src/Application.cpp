@@ -72,17 +72,26 @@ void  Application::ReadArguments(int argc,char * argv[])
             if (arg!=0)
             {
                 string file=arg;
-                int index=file.find(".dot");
-                if (index==string::npos)
+                if ((file.compare("-t")==0)||(file.compare("-g")==0)||(file.compare("-e")==0))
                 {
+                    cerr<<"ERROR : no .dot file provided"<<endl; 
+                    executionPossible=false;
+                }else
+                {
+                    int index=file.find(".dot");
+                    if (index==string::npos)
+                    {
                     cerr<<"ERROR : file provided for graph does not have a .dot extension"<<endl; 
                     executionPossible=false;
-                }
-                else
-                {
+                    }
+                    else
+                    {
                     g=true;
                     fileDot=file;
+                    
                 }
+                }
+                
             }
             else 
             {

@@ -12,15 +12,16 @@
 //--------------------------------------------------- Interfaces utilisées
 # include "Log.h"
 # include <utility>
+# include <unordered_map>
 # include <map>
 using namespace std;
 //------------------------------------------------------------- Constantes 
 const string DOMAIN_NAME="http://intranet-if.insa-lyon.fr";
 const int MAX_IN_TOP=10;
 //------------------------------------------------------------------ Types 
-typedef map<string,int> MapReferers;
-typedef map<string,pair<int,MapReferers>> MapCibles;
-typedef map<string,int> MapResources;
+typedef unordered_map<string,int> MapReferers;
+typedef unordered_map<string,pair<int,MapReferers>> MapCibles;
+typedef unordered_map<string,int> MapResources;
 typedef multimap <int,string> Top;
 //------------------------------------------------------------------------ 
 // Rôle de la classe <Principale>
